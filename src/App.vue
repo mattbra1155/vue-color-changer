@@ -1,28 +1,86 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" :style="backgroundStyle" >
+    <appHeader :bgColor="backgroundStyle.background"></appHeader>
+    <main class="main">
+        <h1 class="header">Generate a color!</h1>
+        <button class="button" @click="getNewRGBColor">Generate</button>
+    </main>
   </div>
+  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import Header from './components/Header.vue';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    data() {
+        return {
+            backgroundStyle: {
+                background: `rgb (255,255,255)`
+            },
+            buttonStyle: {
+                color: '',
+                border: '',
+            }
+            
+            
+        }
+    },
+    methods: {
+        getNewRGBColor() {
+            const getRandomRed = Math.floor(Math.random() * 255 + 1);
+            const getRandomGreen = Math.floor(Math.random() * 255 + 1);
+            const getRandomBlue = Math.floor(Math.random() * 255 + 1);
+            const getRandomRGB = `${getRandomRed}, ${getRandomGreen}, ${getRandomBlue}`;
+            console.log(getRandomRGB);
+            this.backgroundStyle.background = `rgb(${getRandomRGB})`
+        }
+    },
+    watch: {
+        changeFontColor() {
+            return this.fontColor = `rgb(255,255,255)`;
+        }
+    },
+    components: {
+        appHeader: Header,
+    },
 }
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
+#app {
+    height: 100vh;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+}
+
+.button {
+    font-size: 3rem;
+    background: transparent;
+    border: 2px solid black;
+    padding: 20px;
+    margin: 20px;
+}
+
+.button:hover {
+    cursor: pointer;
+    background: black;
+    color: white;
+}
+
 </style>
